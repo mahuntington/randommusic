@@ -10,6 +10,17 @@ renderer.resize(1200, 1200);
 // And get a drawing context:
 const context = renderer.getContext();
 
+const randomNote = () => {
+    const pitches = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+    const randomPitchIndex = Math.floor(Math.random()*pitches.length);
+    const pitch = pitches[randomPitchIndex];
+
+    const octaves = ['4', '5'];
+    const randomOctaveIndex = Math.floor(Math.random()*octaves.length);
+    const octave = octaves[randomOctaveIndex];
+
+    return `${pitch}/${octave}`;
+}
 
 const drawNotes = (measureNum) => {
     const staveWidth = 550;
@@ -25,17 +36,17 @@ const drawNotes = (measureNum) => {
     stave.setContext(context).draw();
 
     const notes = [
-        new VF.StaveNote({clef: "treble", keys: ["c/4"], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
     ];
     const notes2 = [
-        new VF.StaveNote({clef: "treble", keys: ["b/4"], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
     ];
     const notes3 = [
-        new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
     ];
     const allNotes = notes.concat(notes2).concat(notes3);
 
