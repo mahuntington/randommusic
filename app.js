@@ -22,6 +22,18 @@ const randomNote = () => {
     return `${pitch}/${octave}`;
 }
 
+const returnNewNote = () => {
+    const newNote = new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" })
+    if(Math.random() > 0.5){
+        const accidentals = ['b', '#']
+        const randomAccidentalIndex = Math.floor(Math.random()*accidentals.length);
+        const accidental = accidentals[randomAccidentalIndex];
+        newNote.addAccidental(0, new VF.Accidental(accidental));
+    }
+
+    return newNote;
+}
+
 const drawNotes = (measureNum) => {
     const staveWidth = 550;
     // Create a stave at position 10, 40 of width 400 on the canvas.
@@ -36,17 +48,17 @@ const drawNotes = (measureNum) => {
     stave.setContext(context).draw();
 
     const notes = [
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        returnNewNote(),
+        returnNewNote(),
     ];
     const notes2 = [
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        returnNewNote(),
+        returnNewNote(),
     ];
     const notes3 = [
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
-        new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" }),
+        returnNewNote(),
+        returnNewNote(),
+        returnNewNote(),
     ];
     const allNotes = notes.concat(notes2).concat(notes3);
 
