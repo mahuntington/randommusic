@@ -10,21 +10,22 @@ renderer.resize(1200, 1200);
 // And get a drawing context:
 const context = renderer.getContext();
 
-const randomNote = () => {
-    const pitches = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-    const randomPitchIndex = Math.floor(Math.random()*pitches.length);
-    const pitch = pitches[randomPitchIndex];
+const randomArrayElement = (array) => {
+    const randomIndex = Math.floor(Math.random()*array.length);
+    return array[randomIndex];
 
-    const octaves = ['4', '5'];
-    const randomOctaveIndex = Math.floor(Math.random()*octaves.length);
-    const octave = octaves[randomOctaveIndex];
+}
+
+const randomNote = () => {
+    const pitch = randomArrayElement(['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+    const octave = randomArrayElement(['4', '5']);
 
     return `${pitch}/${octave}`;
 }
 
 const returnNewNote = () => {
     const newNote = new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" })
-    if(Math.random() > 0.5){
+    if(Math.random() > 0.6){
         const accidentals = ['b', '#']
         const randomAccidentalIndex = Math.floor(Math.random()*accidentals.length);
         const accidental = accidentals[randomAccidentalIndex];
