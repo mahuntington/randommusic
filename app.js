@@ -1,13 +1,14 @@
 const VF = Vex.Flow;
 const numBeats = 7;
 const beatValue = 8;
+let numBars = 0;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
 const musicSection = document.querySelector("#music");
 const renderer = new VF.Renderer(musicSection, VF.Renderer.Backends.SVG);
 
 // Size our SVG:
-renderer.resize(musicSection.offsetWidth+1, 1200);
+renderer.resize(musicSection.offsetWidth+1, musicSection.offsetHeight);
 
 // And get a drawing context:
 const context = renderer.getContext();
@@ -37,12 +38,12 @@ const returnNewNote = () => {
     return newNote;
 }
 
-const drawNotes = (measureNum) => {
+const createBar = () => {
     const staveWidth = numBeats*40;
-    const stave = new VF.Stave(measureNum*staveWidth, 40, staveWidth);
+    const stave = new VF.Stave(numBars*staveWidth, 40, staveWidth);
 
     // Add a clef and time signature.
-    if(measureNum === 0){
+    if(numBars === 0){
         stave.addClef("treble").addTimeSignature("7/8");
     }
 
@@ -77,9 +78,9 @@ const drawNotes = (measureNum) => {
     // Format and justify the notes to 400 pixels.
     Vex.Flow.Formatter.FormatAndDraw(context, stave, allNotes);
     beams.forEach(function(b) {b.setContext(context).draw()})
+    numBars++;
 }
 
-drawNotes(0);
-drawNotes(1);
-drawNotes(2);
-drawNotes(3);
+for(let i = 0; i < 4; i++){
+    createBar();
+}
