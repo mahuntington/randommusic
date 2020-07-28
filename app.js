@@ -1,4 +1,6 @@
 const VF = Vex.Flow;
+const numBeats = 7;
+const beatValue = 8;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
 const musicSection = document.querySelector("#music");
@@ -36,7 +38,7 @@ const returnNewNote = () => {
 }
 
 const drawNotes = (measureNum) => {
-    const staveWidth = musicSection.offsetWidth/3;
+    const staveWidth = numBeats*40;
     const stave = new VF.Stave(measureNum*staveWidth, 40, staveWidth);
 
     // Add a clef and time signature.
@@ -69,7 +71,7 @@ const drawNotes = (measureNum) => {
     ]
 
     // Create a voice in 4/4 and add the notes from above
-    const voice = new VF.Voice({num_beats: 7,  beat_value: 8});
+    const voice = new VF.Voice({num_beats: numBeats,  beatValue: 8});
     voice.addTickables(notes);
 
     // Format and justify the notes to 400 pixels.
@@ -80,3 +82,4 @@ const drawNotes = (measureNum) => {
 drawNotes(0);
 drawNotes(1);
 drawNotes(2);
+drawNotes(3);
