@@ -1,11 +1,11 @@
 const VF = Vex.Flow;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
-const div = document.querySelector("body")
-const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+const musicSection = document.querySelector("#music");
+const renderer = new VF.Renderer(musicSection, VF.Renderer.Backends.SVG);
 
 // Size our SVG:
-renderer.resize(1200, 1200);
+renderer.resize(musicSection.offsetWidth+1, 1200);
 
 // And get a drawing context:
 const context = renderer.getContext();
@@ -36,9 +36,8 @@ const returnNewNote = () => {
 }
 
 const drawNotes = (measureNum) => {
-    const staveWidth = 550;
-    // Create a stave at position 10, 40 of width 400 on the canvas.
-    const stave = new VF.Stave(10+(measureNum*staveWidth), 40, staveWidth);
+    const staveWidth = musicSection.offsetWidth/3;
+    const stave = new VF.Stave(measureNum*staveWidth, 40, staveWidth);
 
     // Add a clef and time signature.
     if(measureNum === 0){
@@ -80,3 +79,4 @@ const drawNotes = (measureNum) => {
 
 drawNotes(0);
 drawNotes(1);
+drawNotes(2);
