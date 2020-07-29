@@ -1,6 +1,7 @@
 const VF = Vex.Flow;
 const numBeats = 7;
 const beatValue = 8;
+const widthPerBeat = 40;
 let numBars = 0;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
@@ -8,7 +9,7 @@ const musicSection = document.querySelector("#music");
 const renderer = new VF.Renderer(musicSection, VF.Renderer.Backends.SVG);
 
 // Size our SVG:
-renderer.resize(musicSection.offsetWidth+1, musicSection.offsetHeight);
+renderer.resize(4*numBeats*widthPerBeat+2, musicSection.offsetHeight);
 
 // And get a drawing context:
 const context = renderer.getContext();
@@ -29,7 +30,7 @@ const randomNote = () => {
 const returnNewNote = () => {
     const newNote = new VF.StaveNote({clef: "treble", keys: [randomNote()], duration: "8" })
     if(Math.random() > 0.6){
-        const accidentals = ['b', '#']
+        const accidentals = ['b', '#'];
         const randomAccidentalIndex = Math.floor(Math.random()*accidentals.length);
         const accidental = accidentals[randomAccidentalIndex];
         newNote.addAccidental(0, new VF.Accidental(accidental));
@@ -39,7 +40,7 @@ const returnNewNote = () => {
 }
 
 const createBar = () => {
-    const staveWidth = numBeats*40;
+    const staveWidth = numBeats*widthPerBeat;
     const stave = new VF.Stave(numBars*staveWidth, 40, staveWidth);
 
     // Add a clef and time signature.
