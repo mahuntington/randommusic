@@ -3,6 +3,8 @@ const numBeats = 7;
 const beatValue = 8;
 const widthPerBeat = 40;
 let numBars = 0;
+let numBarsOnCurrentLine = 0;
+let numLines = 0;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
 const musicSection = document.querySelector("#music");
@@ -41,7 +43,7 @@ const returnNewNote = () => {
 
 const createBar = () => {
     const staveWidth = numBeats*widthPerBeat;
-    const stave = new VF.Stave(numBars*staveWidth, 40, staveWidth);
+    const stave = new VF.Stave(numBarsOnCurrentLine*staveWidth, 40 + (numLines * 150), staveWidth);
 
     // Add a clef and time signature.
     if(numBars === 0){
@@ -80,8 +82,13 @@ const createBar = () => {
     Vex.Flow.Formatter.FormatAndDraw(context, stave, allNotes);
     beams.forEach(function(b) {b.setContext(context).draw()})
     numBars++;
+    numBarsOnCurrentLine++;
+    if(numBarsOnCurrentLine === 4){
+        numLines++;
+        numBarsOnCurrentLine = 0;
+    }
 }
 
-for(let i = 0; i < 4; i++){
+for(let i = 0; i < 13; i++){
     createBar();
 }
