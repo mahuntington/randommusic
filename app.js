@@ -1,5 +1,6 @@
 const VF = Vex.Flow;
 const numBeats = 7;
+const clave = [3,2,2];
 const beatValue = 8;
 const widthPerBeat = 40;
 let numBars = 0;
@@ -53,30 +54,25 @@ const createBar = () => {
     // Connect it to the rendering context and draw!
     stave.setContext(context).draw();
 
-    const notes = [
-        returnNewNote(),
-        returnNewNote(),
-    ];
-    const notes2 = [
-        returnNewNote(),
-        returnNewNote(),
-    ];
-    const notes3 = [
-        returnNewNote(),
-        returnNewNote(),
-        returnNewNote(),
-    ];
-    const allNotes = notes.concat(notes2).concat(notes3);
-
-    const beams = [
-      new VF.Beam(notes),
-      new VF.Beam(notes2),
-      new VF.Beam(notes3)
-    ]
+    const allNotes = [];
+    for(let i = 0; i < numBeats; i++){
+        allNotes.push(returnNewNote());
+    }
+    const beams = [];
+    let allNotesIndex = 0;
+    for(let i = 0; i < clave.length; i++){
+        const beat = []
+        for(let j = 0; j < clave[i]; j++){
+            beat.push(allNotes[allNotesIndex]);
+            allNotesIndex++;
+        }
+        beams.push(new VF.Beam(beat))
+    }
+    console.log(beams);
 
     // Create a voice in 4/4 and add the notes from above
     const voice = new VF.Voice({num_beats: numBeats,  beatValue: 8});
-    voice.addTickables(notes);
+    voice.addTickables(allNotes);
 
     // Format and justify the notes to 400 pixels.
     Vex.Flow.Formatter.FormatAndDraw(context, stave, allNotes);
@@ -89,6 +85,6 @@ const createBar = () => {
     }
 }
 
-for(let i = 0; i < 13; i++){
+for(let i = 0; i < 7; i++){
     createBar();
 }
